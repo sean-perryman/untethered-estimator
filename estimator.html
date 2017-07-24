@@ -3,23 +3,31 @@
 <head>
 	<title>Cost Estimator</title>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
-	<h1>Untethered Cost Estimator</h1>
-	<input id="startDate" type="text" placeholder="Start Date">
-	<input id="finishDate" type="text" placeholder="Finish Date"><br />
-	<input id="numberOfCampers" type="text" placeholder="Number of Campers">
-	<button id="plus">+</button>
-	<button id="minus">-</button>
-	<p>Total Number of Days</p><p id="totalNumberOfDays"></p><br />
-	<p>Trip Deposit Estimate</p><p id="tripDepositEstimate"></p><br />
-	<p>Equipment Rental Estimate</p><p id="equipmentRentalEstimate"</p><br />
-	<p>Total Upfront</p><p id="totalUpfront"</p><br />
-	<p>Refundable Upon Return</p><p id="refundableUponReturn"></p><br />
-
+	<div class="container">
+		<h1>Untethered Cost Estimator</h1>
+		<div class="row">
+			<input id="startDate" type="text" placeholder="Start Date">
+			<input id="finishDate" type="text" placeholder="Finish Date">
+		</div>
+		<div class="row">
+			<input id="numberOfCampers" type="text" placeholder="Number of Campers">
+			<button id="plus">+</button>
+			<button id="minus">-</button>
+		</div>
+		<div class="row"><p>Total Number of Days: <div id="totalNumberOfDays"></div></p></div>
+		<div class="row"><p>Trip Deposit Estimate: <div id="tripDepositEstimate"></div></p></div>
+		<div class="row"><p>Equipment Rental Estimate: <div id="equipmentRentalEstimate"></div></p></div>
+		<div class="row"><p>Total Upfront: <div id="totalUpfront"></div></p></div>
+		<div class="row"><p>Refundable Upon Return: <div id="refundableUponReturn"></div></p></div>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script>
 		var numberOfCampers = 0;
 
@@ -30,7 +38,7 @@
 		});
 
 		$('#minus').on('click', function() {
-			if (numberOfCampers < 2) { $('#numberOfCampers').val(''); }  //.removeAttr('value').attr('placeholder','Number of Crampers'); }
+			if (numberOfCampers < 2) { $('#numberOfCampers').val(''); }
 			else {
 				numberOfCampers--;
 				$('#numberOfCampers').val(numberOfCampers);
@@ -51,16 +59,85 @@
 
 			var tripDepositEstimate;
 			var equipmentRentalEstimate;
-			var totalUpfront;
-			var refundableUponReturn;
 
-			if (numberOfCampers <= 6) { tripDepositEstimate = 280; }
-			else if (numberOfCampers > 6 && numberOfCampers <=12) { tripDepositEstimate = 280*2; }
-			else if (numberOfCampers > 12 && numberOfCampers <=18) { tripDepositEstimate = 280*3; }
+			if (numberOfCampers < 6) { tripDepositEstimate = 200; }
+			else if (numberOfCampers >= 6 && numberOfCampers < 11) { tripDepositEstimate = 250; }
+			else if (numberOfCampers >= 11 && numberOfCampers < 15) { tripDepositEstimate = 300; }
+			else if (numberOfCampers >= 15 && numberOfCampers <= 16) { tripDepositEstimate = 350; }
 			console.log( "Trip Deposit Estimate: " + tripDepositEstimate );
+			$('#tripDepositEstimate').text(tripDepositEstimate);
+		
+			var numExNights = totalDays - 2;
+			var exNightCharge = 0; 
+			if (numExNights > 0 && numExNights < 6) { exNightCharge = numExNights * 50; }
+			else if (numExNights > 6 && numExNights < 11) { exNightCharge = numExNights * 65; }
+			else if (numExNights > 11 && numExNights < 15) { exNightCharge = numExNights * 90; }
+			else if (numExNights > 15 && numExNights < 16) { exNightCharge = numExNights * 120; }
+			console.log( "Number of Extra Nights: " + numExNights + " | Extra Night Charge: " + exNightCharge);
+			
+			equipmentRentalEstimate = getEquipRentalPrice(numberOfCampers) + exNightCharge;
+			console.log( "Rental Price: " + getEquipRentalPrice(numberOfCampers));
+			$('#equipmentRentalEstimate').text(Math.round(equipmentRentalEstimate));
 
-
+			$('#totalUpfront').text(Math.round(tripDepositEstimate + equipmentRentalEstimate));
+			$('#refundableUponReturn').text(tripDepositEstimate);
 		}
+
+		function getEquipRentalPrice(numberOfCampers) {
+			switch(numberOfCampers){
+				case 1:
+					return 155;
+					break;
+				case 2:
+					return 240;
+					break;
+				case 3:
+					return 385;
+					break;
+				case 4:
+					return 445;
+					break;
+				case 5:
+					return 510;
+					break;
+				case 6:
+					return 670;
+					break;
+				case 7:
+					return 735;
+					break;
+				case 8:
+					return 790;
+					break;
+				case 9:
+					return 850;
+					break;
+				case 10:
+					return 915;
+					break;
+				case 11: 
+					return 1070;
+					break;
+				case 12:
+					return 1130;
+					break;
+				case 13:
+					return 1190;
+					break;
+				case 14:
+					return 1250;
+					break;
+				case 15:
+					return 1400;
+					break;
+				case 16:
+					return 1460;
+					break;
+				default:
+					return 0;
+			}
+		}
+
 	</script>
 </body>
 </html>
