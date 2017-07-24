@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cost Estimator</title>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
+</head>
+<body>
+	<h1>Untethered Cost Estimator</h1>
+	<input id="startDate" type="text" placeholder="Start Date">
+	<input id="finishDate" type="text" placeholder="Finish Date"><br />
+	<input id="numberOfCampers" type="text" placeholder="Number of Campers">
+	<button id="plus">+</button>
+	<button id="minus">-</button>
+	<p>Total Number of Days</p><p id="totalNumberOfDays"></p><br />
+	<p>Trip Deposit Estimate</p><p id="tripDepositEstimate"></p><br />
+	<p>Equipment Rental Estimate</p><p id="equipmentRentalEstimate"</p><br />
+	<p>Total Upfront</p><p id="totalUpfront"</p><br />
+	<p>Refundable Upon Return</p><p id="refundableUponReturn"></p><br />
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script>
+		var numberOfCampers = 0;
+
+		$('#plus').on('click', function() {
+			numberOfCampers++;
+			$('#numberOfCampers').val(numberOfCampers);
+		});
+
+		$('#minus').on('click', function() {
+			if (numberOfCampers < 2) { $('#numberOfCampers').val(''); }  //.removeAttr('value').attr('placeholder','Number of Crampers'); }
+			else {
+				numberOfCampers--;
+				$('#numberOfCampers').val(numberOfCampers);
+			}
+
+			var startDate = new Date($('#startDate').val());
+			var finishDate = new Date($('#finishDate').val());
+			var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+			var totalDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)))
+			console.log('Start Date: ' + startDate + ' | Finish Date: ' + finishDate + ' | Total Days: ' + totalDays);
+
+			$('#totalNumberOfDays').val(totalDays);
+		
+		});
+
+		$('#startDate').datepicker();
+		$('#finishDate').datepicker();
+	</script>
+</body>
+</html>
