@@ -15,20 +15,22 @@
 <body>
 	<div class="container well col-md-6">
 		<div class="text-center"><h1>Untethered Pricing</h1></div>
-		<div class="col-md-offset-2 row">
-			<input id="startDate" type="text" placeholder="Start Date">
-			<input id="finishDate" type="text" placeholder="Finish Date">
+		<div class="form-group col-md-offset-2 row">
+			<input class="col-md-4" id="startDate" type="text" placeholder="Start Date">
+			<div class="col-md-1"></div>
+			<input class="col-md-4" id="finishDate" type="text" placeholder="Finish Date">
 		</div>
-		<div class="col-md-offset-2 row">
-			<input id="numberOfCampers" type="text" placeholder="Number of Campers">
-			<button id="plus">+</button>
-			<button id="minus">-</button>
+		<div class="form-group col-md-offset-2 row">
+			<input class="col-md-4" id="numberOfCampers" type="text" placeholder="Number of Campers">
+			<div class="col-md-1"></div>
+			<button class="col-md-2" id="plus">+</button>
+			<!--<div class="col-md-2"></div>-->
+			<button class="col-md-2" id="minus">-</button>
 		</div>
-		<div class="col-md-offset-2 row"><p class="float-left">Total Number of Days: <span id="totalNumberOfDays" class="col-md-offset-3 float-right"></span></p></div>
-		<!--<div class="row"><p>Trip Deposit Estimate: <div id="tripDepositEstimate"></div></p></div>-->
-		<div class="col-md-offset-2 row"><p>Your Camping Kit Price: <span id="equipmentRentalEstimate" class="col-md-offset-3 float-right"></span></p></div>
-		<div class="col-md-offset-2 row"><p>Trip + Equip Refundable* Deposit: <span id="totalUpfront" class="col-md-offset-2 float-right"></span></p></div>
-		<div class="col-md-offset-2 row"><p>Amount Refundable* After Trip: <span id="refundableUponReturn" class="col-md-offset-2 float-right"></span></p></div>
+		<div class="col-md-offset-2 row"><p class="col-md-5">Total Number of Days:</p><div class="col-md-2"></div><span id="totalNumberOfDays" class="col-md-3"></span></div>
+		<div class="col-md-offset-2 row"><p class="col-md-5">Your Camping Kit Price:</p><div class="col-md-2"></div><span id="equipmentRentalEstimate" class="col-md-3"></span></div>
+		<div class="col-md-offset-2 row"><p class="col-md-5">Trip + Equip Refundable* Deposit:</p><div class="col-md-2"></div><span id="totalUpfront" class="col-md-3"></span></div>
+		<div class="col-md-offset-2 row"><p class="col-md-5">Amount Refundable* After Trip:</p><div class="col-md-2"></div><span id="refundableUponReturn" class="col-md-3"></span></div>
 		<div class="text-center"><h6>* See Terms + Conditions regarding Trip + Equip Deposit.</h6></div>
 	</div>
 
